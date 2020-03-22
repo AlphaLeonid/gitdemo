@@ -20,4 +20,16 @@ r.columns = list(d.columns) + [u'聚类类别']
 print(r.head())
 r.to_excel(outfile)
 
+from sklearn.manifold import TSNE
+ts = TSNE()
+ts.fit_transform(r)
+ts = pd.DataFrame(ts.embedding_, index = r.index)
+import matplotlib.pyplot as plt
+a = ts[r[u'聚类类别'] == 0]
+plt.plot(a[0], a[1], 'r.')
+a = ts[r[u'聚类类别'] == 1]
+plt.plot(a[0], a[1], 'go')
+a = ts[r[u'聚类类别'] == 2]
+plt.plot(a[0], a[1], 'b*')
+plt.show()
 
